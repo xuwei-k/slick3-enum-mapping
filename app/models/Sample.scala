@@ -15,7 +15,7 @@ class Color extends Enumeration {
 }
 object Color extends Color
 
-case class Sample(name:String, id:Int, c:Color)
+case class Sample(name:String, id:Int, c:Color.Value)
 
 // Schemas
 @Singleton
@@ -27,7 +27,7 @@ class ColorDao @Inject()(dbConfigProvider: DatabaseConfigProvider)(implicit ec: 
   class SampleTable(tag: Tag) extends Table[Sample](tag, "Sample") {
     def name  = column[String]("NAME")
     def id    = column[Int]("ID")
-    def color = column[Color]("COLOR")
+    def color = column[Color.Value]("COLOR")
     def * = (name, id, color) <> (Sample.tupled, Sample.unapply)
   }
 
